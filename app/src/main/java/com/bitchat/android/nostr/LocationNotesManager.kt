@@ -331,15 +331,18 @@ class LocationNotesManager private constructor() {
 
         _state.value = State.LOADING
         
+        // Calculate 1 week ago timestamp (startup period)
+        val oneWeekAgo = (System.currentTimeMillis() / 1000) - (7 * 24 * 60 * 60)
+        
         // Subscribe for each geohash in the ±1 set
         subscribedGeohashes.forEach { gh ->
             val filter = NostrFilter.geohashNotes(
                 geohash = gh,
-                since = null,
-                limit = 200
+                since = oneWeekAgo,
+                limit = 500
             )
             val subId = "location-notes-$gh"
-            Log.d(TAG, "📡 Subscribing to location notes: $subId")
+            Log.d(TAG, "📡 Subscribing to location notes: $subId (since: $oneWeekAgo, limit: 500)")
             try {
                 val id = subscribe(filter, subId) { event -> handleEvent(event) }
                 subscriptionIDs[gh] = id
@@ -385,6 +388,7 @@ class LocationNotesManager private constructor() {
         
         // Deduplicate
         if (noteIDs.contains(event.id)) {
+            Log.v(TAG, "Duplicate note ignored: ${event.id.take(16)}")
             return
         }
         
@@ -406,7 +410,7 @@ class LocationNotesManager private constructor() {
         val currentNotes = _notes.value ?: emptyList()
         _notes.value = (currentNotes + note).sortedByDescending { it.createdAt }
         
-        Log.d(TAG, "📥 Added note: ${note.displayName} - ${note.content.take(50)}")
+        Log.d(TAG, "📥 Added note from relay: ${note.displayName} - ${note.content.take(50)} (id: ${event.id.take(16)}, created: ${event.createdAt})")
         
         // Trim if exceeds max
         if (noteIDs.size > MAX_NOTES_IN_MEMORY) {

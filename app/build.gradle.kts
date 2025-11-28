@@ -13,8 +13,8 @@ android {
         applicationId = "com.zii.mobile"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 20
-        versionName = "1.7.5-welcome-name"
+        versionCode = 24
+        versionName = "1.8.0"
         
         // Custom APK name with version
         setProperty("archivesBaseName", "zii-chat-${versionName}")

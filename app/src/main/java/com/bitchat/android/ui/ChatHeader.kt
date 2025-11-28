@@ -551,7 +551,7 @@ private fun MainHeader(
             Text(
                 text = stringResource(R.string.app_brand),
                 style = MaterialTheme.typography.headlineSmall,
-                color = colorScheme.primary,
+                color = Color(0xFF00C853),
                 modifier = Modifier.singleOrTripleClickable(
                     onSingleClick = onTitleClick,
                     onTripleClick = onTripleTitleClick
