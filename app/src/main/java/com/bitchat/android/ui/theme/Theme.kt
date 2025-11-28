@@ -16,40 +16,51 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 
-// Colors that match the iOS bitchat theme
+// Zii Dark Theme - Modern dark design with blue accents
 private val DarkColorScheme = darkColorScheme(
-    primary = Color(0xFF39FF14),        // Bright green (terminal-like)
-    onPrimary = Color.Black,
-    secondary = Color(0xFF2ECB10),      // Darker green
-    onSecondary = Color.Black,
-    background = Color.Black,
-    onBackground = Color(0xFF39FF14),   // Green on black
-    surface = Color(0xFF111111),        // Very dark gray
-    onSurface = Color(0xFF39FF14),      // Green text
-    error = Color(0xFFFF5555),          // Red for errors
-    onError = Color.Black
+    primary = Color(0xFF60A5FA),        // Bright Zii blue for dark mode
+    onPrimary = Color(0xFF0F172A),      // Dark text on blue
+    secondary = Color(0xFF3B82F6),      // Standard Zii blue
+    onSecondary = Color.White,
+    tertiary = Color(0xFF8B5CF6),       // Purple accent
+    onTertiary = Color.White,
+    background = Color(0xFF0F172A),     // Deep dark slate
+    onBackground = Color(0xFFF8FAFC),   // Very light text
+    surface = Color(0xFF1E293B),        // Dark surface
+    onSurface = Color(0xFFE2E8F0),      // Light gray text
+    surfaceVariant = Color(0xFF334155),  // Lighter surface variant
+    onSurfaceVariant = Color(0xFFCBD5E1), // Medium gray text
+    outline = Color(0xFF64748B),        // Border color
+    error = Color(0xFFEF4444),          // Red for errors
+    onError = Color.White
 )
 
+// Zii Light Theme - Clean light design with blue accents
 private val LightColorScheme = lightColorScheme(
-    primary = Color(0xFF008000),        // Dark green
+    primary = Color(0xFF3B82F6),        // Zii blue
     onPrimary = Color.White,
-    secondary = Color(0xFF006600),      // Even darker green
+    secondary = Color(0xFF1E40AF),      // Darker blue
     onSecondary = Color.White,
-    background = Color.White,
-    onBackground = Color(0xFF008000),   // Dark green on white
-    surface = Color(0xFFF8F8F8),        // Very light gray
-    onSurface = Color(0xFF008000),      // Dark green text
-    error = Color(0xFFCC0000),          // Dark red for errors
+    tertiary = Color(0xFF8B5CF6),       // Purple accent
+    onTertiary = Color.White,
+    background = Color(0xFFFAFAFA),     // Light gray background
+    onBackground = Color(0xFF0F172A),   // Dark text
+    surface = Color.White,              // White surface
+    onSurface = Color(0xFF1E293B),      // Dark text on surface
+    surfaceVariant = Color(0xFFF1F5F9), // Light surface variant
+    onSurfaceVariant = Color(0xFF475569), // Medium gray text
+    outline = Color(0xFFCBD5E1),       // Light border color
+    error = Color(0xFFEF4444),          // Red for errors
     onError = Color.White
 )
 
 @Composable
-fun BitchatTheme(
-    darkTheme: Boolean? = null,
+fun ZiiTheme(
+    darkTheme: Boolean? = null, // null = use user preference
     content: @Composable () -> Unit
 ) {
     // App-level override from ThemePreferenceManager
-    val themePref by ThemePreferenceManager.themeFlow.collectAsState(initial = ThemePreference.System)
+    val themePref by ThemePreferenceManager.themeFlow.collectAsState(initial = ThemePreference.Dark)
     val shouldUseDark = when (darkTheme) {
         true -> true
         false -> false

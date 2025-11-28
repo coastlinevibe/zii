@@ -93,8 +93,8 @@ fun LocationNotesSheet(
         onDismissRequest = onDismiss,
         modifier = modifier,
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-        containerColor = backgroundColor,
-        contentColor = if (isDark) Color.White else Color.Black
+        containerColor = MaterialTheme.colorScheme.surface,
+        contentColor = MaterialTheme.colorScheme.onSurface
     ) {
         Column(
             modifier = Modifier
@@ -117,7 +117,7 @@ fun LocationNotesSheet(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth()
-                    .background(backgroundColor)
+                    .background(MaterialTheme.colorScheme.surface)
             ) {
                 LazyColumn(
                     state = listState,
@@ -208,7 +208,7 @@ private fun LocationNotesHeader(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(backgroundColor)
+            .background(MaterialTheme.colorScheme.surface)
             .padding(horizontal = 16.dp)
             .padding(top = 16.dp, bottom = 12.dp)
     ) {
@@ -478,7 +478,7 @@ private fun LocationNotesInputSection(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(backgroundColor)
+            .background(MaterialTheme.colorScheme.surface)
             .padding(horizontal = 12.dp, vertical = 8.dp), // Match main chat padding
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp) // Match main chat spacing
@@ -491,10 +491,10 @@ private fun LocationNotesInputSection(
                 value = draft,
                 onValueChange = onDraftChange,
                 textStyle = MaterialTheme.typography.bodyMedium.copy(
-                    color = colorScheme.primary,
+                    color = colorScheme.onSurface,
                     fontFamily = FontFamily.Monospace
                 ),
-                cursorBrush = androidx.compose.ui.graphics.SolidColor(colorScheme.primary),
+                cursorBrush = androidx.compose.ui.graphics.SolidColor(colorScheme.onSurface),
                 keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
                     imeAction = androidx.compose.ui.text.input.ImeAction.Send
                 ),

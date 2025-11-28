@@ -230,8 +230,40 @@ fun AboutSheet(
                         }
                     }
 
+                    // Limits Section
+                    item(key = "limits_section") {
+                        Text(
+                            text = stringResource(R.string.about_limits),
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
+                            modifier = Modifier
+                                .padding(horizontal = 24.dp)
+                                .padding(top = 24.dp, bottom = 8.dp)
+                        )
+                        Column(
+                            modifier = Modifier.padding(horizontal = 24.dp),
+                            verticalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            Text(
+                                text = stringResource(R.string.about_image_limit),
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontFamily = FontFamily.Monospace,
+                                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)
+                            )
+                            Text(
+                                text = stringResource(R.string.about_voice_limit),
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontFamily = FontFamily.Monospace,
+                                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)
+                            )
+                        }
+                    }
+
+
+
                     // Appearance Section
                     item(key = "appearance_section") {
+                        val context = LocalContext.current
                         Text(
                             text = stringResource(R.string.about_appearance),
                             style = MaterialTheme.typography.labelLarge,

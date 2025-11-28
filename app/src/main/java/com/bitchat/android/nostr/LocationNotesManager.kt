@@ -189,9 +189,17 @@ class LocationNotesManager private constructor() {
     }
     
     /**
-     * Send a new location note
+     * Send a new location note with content filtering
      */
     fun send(content: String, nickname: String?) {
+        // Content filtering - check for inappropriate language
+        val filterResult = com.bitchat.android.moderation.ContentFilter.checkContent(content)
+        if (filterResult.isBlocked) {
+            _errorMessage.postValue("Message blocked: inappropriate language detected")
+            Log.w(TAG, "Location note blocked due to inappropriate content")
+            return
+        }
+        
         val currentGeohash = _geohash.value
         if (currentGeohash == null) {
             Log.w(TAG, "Cannot send note - no geohash set")

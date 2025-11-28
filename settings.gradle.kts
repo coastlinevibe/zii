@@ -15,6 +15,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "bitchat-android"
+rootProject.name = "zii-chat-android"
 include(":app")
 // Using published Arti AAR; local module not included

@@ -39,8 +39,14 @@ import com.bitchat.android.ui.media.FullScreenImageViewer
  * - ChatUIUtils: Utility functions for formatting and colors
  */
 @Composable
-fun ChatScreen(viewModel: ChatViewModel) {
+fun ChatScreen(
+    viewModel: ChatViewModel
+) {
     val colorScheme = MaterialTheme.colorScheme
+    
+    // Simple hints system
+    val hintManager = com.bitchat.android.onboarding.rememberSimpleHintManager()
+    val context = androidx.compose.ui.platform.LocalContext.current
     val messages by viewModel.messages.observeAsState(emptyList())
     val connectedPeers by viewModel.connectedPeers.observeAsState(emptyList())
     val nickname by viewModel.nickname.observeAsState("")
@@ -111,6 +117,7 @@ fun ChatScreen(viewModel: ChatViewModel) {
         modifier = Modifier
             .fillMaxSize()
             .background(colorScheme.background) // Extend background to fill entire screen including status bar
+
     ) {
         val headerHeight = 42.dp
         
@@ -249,9 +256,16 @@ fun ChatScreen(viewModel: ChatViewModel) {
             colorScheme = colorScheme,
             onSidebarToggle = { viewModel.showSidebar() },
             onShowAppInfo = { viewModel.showAppInfo() },
-            onPanicClear = { viewModel.panicClearAllData() },
+            onPanicClear = { 
+                // Triple-click: panic clear data AND reset onboarding for replay
+                viewModel.panicClearAllData()
+                val onboardingPrefs = com.bitchat.android.onboarding.OnboardingPrefs.getInstance(context)
+                onboardingPrefs.resetOnboarding()
+            },
             onLocationChannelsClick = { showLocationChannelsSheet = true },
-            onLocationNotesClick = { showLocationNotesSheet = true }
+            onLocationNotesClick = { showLocationNotesSheet = true },
+
+
         )
 
         // Divider under header - positioned after status bar + header height
@@ -375,6 +389,8 @@ fun ChatScreen(viewModel: ChatViewModel) {
         selectedMessageForSheet = selectedMessageForSheet,
         viewModel = viewModel
     )
+    
+    // Onboarding removed - will implement better approach
 }
 
 @Composable
@@ -450,7 +466,8 @@ private fun ChatFloatingHeader(
     onShowAppInfo: () -> Unit,
     onPanicClear: () -> Unit,
     onLocationChannelsClick: () -> Unit,
-    onLocationNotesClick: () -> Unit
+    onLocationNotesClick: () -> Unit,
+    onboardingTargets: com.bitchat.android.onboarding.OnboardingTargets? = null
 ) {
     val context = androidx.compose.ui.platform.LocalContext.current
     val locationManager = remember { com.bitchat.android.geohash.LocationChannelManager.getInstance(context) }
@@ -483,7 +500,8 @@ private fun ChatFloatingHeader(
                         // Ensure location is loaded before showing sheet
                         locationManager.refreshChannels()
                         onLocationNotesClick()
-                    }
+                    },
+                    onboardingTargets = onboardingTargets
                 )
             },
             colors = TopAppBarDefaults.topAppBarColors(

@@ -10,11 +10,14 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.bitchat.droid"
+        applicationId = "com.zii.mobile"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 26
-        versionName = "1.5.1"
+        versionCode = 20
+        versionName = "1.7.5-welcome-name"
+        
+        // Custom APK name with version
+        setProperty("archivesBaseName", "zii-chat-${versionName}")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -60,6 +63,8 @@ android {
         checkReleaseBuilds = false
     }
 }
+
+
 
 dependencies {
     // Core Android dependencies

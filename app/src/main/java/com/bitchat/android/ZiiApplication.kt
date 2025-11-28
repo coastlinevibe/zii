@@ -8,7 +8,7 @@ import com.bitchat.android.net.TorManager
 /**
  * Main application class for bitchat Android
  */
-class BitchatApplication : Application() {
+class ZiiApplication : Application() {
     
     override fun onCreate() {
         super.onCreate()

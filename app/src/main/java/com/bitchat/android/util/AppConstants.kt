@@ -26,8 +26,9 @@ object AppConstants {
         const val RSSI_UPDATE_INTERVAL_MS: Long = 5_000L
 
         object Gatt {
-            val SERVICE_UUID: UUID = UUID.fromString("F47B5E2D-4A9E-4C5A-9B3F-8E1D2C3A4B5C")
-            val CHARACTERISTIC_UUID: UUID = UUID.fromString("A1B2C3D4-E5F6-4A5B-8C9D-0E1F2A3B4C5D")
+            // Zii Chat exclusive UUIDs - incompatible with BitChat for business privacy
+            val SERVICE_UUID: UUID = UUID.fromString("7A8B9C0D-1E2F-4A5B-8C9D-0E1F2A3B4C5D")
+            val CHARACTERISTIC_UUID: UUID = UUID.fromString("E5F6A7B8-C9D0-4E1F-2A3B-4C5D6E7F8A9B")
             val DESCRIPTOR_UUID: UUID = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb")
         }
     }
@@ -118,7 +119,7 @@ object AppConstants {
     }
 
     object Media {
-        const val MAX_FILE_SIZE_BYTES: Long = 50L * 1024 * 1024
+        const val MAX_FILE_SIZE_BYTES: Long = 1L * 1024 * 1024  // 1MB limit for mesh network efficiency
     }
 
     object Services {

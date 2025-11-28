@@ -82,6 +82,28 @@ class LocationChannelManager private constructor(private val context: Context) {
         dataManager = com.bitchat.android.ui.DataManager(context)
         loadPersistedChannelSelection()
         loadLocationServicesState()
+        
+        // Auto-enable location services if system location is on and user hasn't explicitly disabled
+        checkAndAutoEnableLocationServices()
+    }
+    
+    /**
+     * Auto-enable location services if system location is enabled and user hasn't explicitly disabled
+     */
+    private fun checkAndAutoEnableLocationServices() {
+        try {
+            val systemLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || 
+                                      locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+            
+            // If system location is on but app thinks it's off, auto-enable it
+            if (systemLocationEnabled && !isLocationServicesEnabled()) {
+                Log.d(TAG, "System location is enabled, auto-enabling app location services")
+                _locationServicesEnabled.postValue(true)
+                saveLocationServicesState(true)
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "Could not check system location status: ${e.message}")
+        }
     }
 
     // MARK: - Public API (matching iOS interface)

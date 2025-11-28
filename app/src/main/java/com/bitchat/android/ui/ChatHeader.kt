@@ -241,7 +241,8 @@ fun ChatHeaderContent(
     onTripleClick: () -> Unit,
     onShowAppInfo: () -> Unit,
     onLocationChannelsClick: () -> Unit,
-    onLocationNotesClick: () -> Unit
+    onLocationNotesClick: () -> Unit,
+    onboardingTargets: com.bitchat.android.onboarding.OnboardingTargets? = null
 ) {
     val colorScheme = MaterialTheme.colorScheme
 
@@ -298,7 +299,8 @@ fun ChatHeaderContent(
                 onSidebarClick = onSidebarClick,
                 onLocationChannelsClick = onLocationChannelsClick,
                 onLocationNotesClick = onLocationNotesClick,
-                viewModel = viewModel
+                viewModel = viewModel,
+
             )
         }
     }
@@ -520,7 +522,8 @@ private fun MainHeader(
     onSidebarClick: () -> Unit,
     onLocationChannelsClick: () -> Unit,
     onLocationNotesClick: () -> Unit,
-    viewModel: ChatViewModel
+    viewModel: ChatViewModel,
+    onboardingTargets: com.bitchat.android.onboarding.OnboardingTargets? = null
 ) {
     val colorScheme = MaterialTheme.colorScheme
     val connectedPeers by viewModel.connectedPeers.observeAsState(emptyList())
@@ -559,7 +562,10 @@ private fun MainHeader(
             
             NicknameEditor(
                 value = nickname,
-                onValueChange = onNicknameChange
+                onValueChange = onNicknameChange,
+                modifier = onboardingTargets?.let { targets ->
+                    targets.addTarget("nickname_editor")
+                } ?: Modifier
             )
         }
         
@@ -586,7 +592,10 @@ private fun MainHeader(
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(end = 4.dp)) {
                 LocationChannelsButton(
                     viewModel = viewModel,
-                    onClick = onLocationChannelsClick
+                    onClick = onLocationChannelsClick,
+                    modifier = onboardingTargets?.let { targets ->
+                        targets.addTarget("location_channels")
+                    } ?: Modifier
                 )
 
                 // Bookmark toggle for current geohash (not shown for mesh)
@@ -616,7 +625,10 @@ private fun MainHeader(
             // Location Notes button (extracted to separate component)
             LocationNotesButton(
                 viewModel = viewModel,
-                onClick = onLocationNotesClick
+                onClick = onLocationNotesClick,
+                modifier = onboardingTargets?.let { targets ->
+                    targets.addTarget("location_notes")
+                } ?: Modifier
             )
 
             // Tor status dot when Tor is enabled
@@ -639,7 +651,10 @@ private fun MainHeader(
                 isConnected = isConnected,
                 selectedLocationChannel = selectedLocationChannel,
                 geohashPeople = geohashPeople,
-                onClick = onSidebarClick
+                onClick = onSidebarClick,
+                modifier = onboardingTargets?.let { targets ->
+                    targets.addTarget("peer_counter")
+                } ?: Modifier
             )
         }
     }
@@ -648,7 +663,8 @@ private fun MainHeader(
 @Composable
 private fun LocationChannelsButton(
     viewModel: ChatViewModel,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val colorScheme = MaterialTheme.colorScheme
     
@@ -673,7 +689,8 @@ private fun LocationChannelsButton(
             containerColor = Color.Transparent,
             contentColor = badgeColor
         ),
-        contentPadding = PaddingValues(start = 4.dp, end = 0.dp, top = 2.dp, bottom = 2.dp)
+        contentPadding = PaddingValues(start = 4.dp, end = 0.dp, top = 2.dp, bottom = 2.dp),
+        modifier = modifier
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(

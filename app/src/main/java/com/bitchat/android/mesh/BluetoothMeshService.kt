@@ -19,8 +19,8 @@ import kotlin.math.sign
 import kotlin.random.Random
 
 /**
- * Bluetooth mesh service - REFACTORED to use component-based architecture
- * 100% compatible with iOS version and maintains exact same UUIDs, packet format, and protocol logic
+ * Zii Chat exclusive Bluetooth mesh service - ISOLATED from BitChat network
+ * Uses Zii-specific UUIDs for business privacy and monetization control
  * 
  * This is now a coordinator that orchestrates the following components:
  * - PeerManager: Peer lifecycle management
