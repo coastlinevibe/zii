@@ -1,0 +1,130 @@
+{
+  "school": {
+    "id": "demo-school-001",
+    "code": "ABC123",
+    "name": "ABC Primary School",
+    "contactName": "John Smith",
+    "contactPhone": "0821234567",
+    "contactEmail": "admin@abcschool.co.za",
+    "address": "123 School Street, Johannesburg, 2000",
+    "primaryColor": "#6B46C1"
+  },
+  "grades": [
+    {
+      "id": "grade-1",
+      "name": "Grade 1",
+      "encryptionKey": "dGVzdC1lbmNyeXB0aW9uLWtleS1ncmFkZS0x"
+    },
+    {
+      "id": "grade-2",
+      "name": "Grade 2",
+      "encryptionKey": "dGVzdC1lbmNyeXB0aW9uLWtleS1ncmFkZS0y"
+    }
+  ],
+  "teachers": [
+    {
+      "id": "teacher-001",
+      "name": "Mrs. Sarah Johnson",
+      "phone": "0821111111",
+      "email": "sarah@abcschool.co.za",
+      "gradeId": "grade-1",
+      "role": "teacher"
+    },
+    {
+      "id": "teacher-002",
+      "name": "Mr. David Brown",
+      "phone": "0822222222",
+      "email": "david@abcschool.co.za",
+      "gradeId": "grade-2",
+      "role": "teacher"
+    },
+    {
+      "id": "teacher-003",
+      "name": "Ms. Emily White",
+      "phone": "0823333333",
+      "email": "emily@abcschool.co.za",
+      "gradeId": "grade-1",
+      "role": "assistant"
+    }
+  ],
+  "students": [
+    {
+      "id": "student-001",
+      "name": "Thabo Mbeki",
+      "idNumber": "ABC00001",
+      "gradeId": "grade-1"
+    },
+    {
+      "id": "student-002",
+      "name": "Lerato Dlamini",
+      "idNumber": "ABC00002",
+      "gradeId": "grade-1"
+    },
+    {
+      "id": "student-003",
+      "name": "Sipho Nkosi",
+      "idNumber": "ABC00003",
+      "gradeId": "grade-1"
+    },
+    {
+      "id": "student-004",
+      "name": "Nomsa Zulu",
+      "idNumber": "ABC00004",
+      "gradeId": "grade-2"
+    },
+    {
+      "id": "student-005",
+      "name": "Bongani Khumalo",
+      "idNumber": "ABC00005",
+      "gradeId": "grade-2"
+    }
+  ],
+  "parents": [
+    {
+      "id": "parent-001",
+      "name": "Mr. John Mbeki",
+      "phone": "0824444444",
+      "email": "john.mbeki@email.com",
+      "studentIds": ["student-001"]
+    },
+    {
+      "id": "parent-002",
+      "name": "Mrs. Grace Dlamini",
+      "phone": "0825555555",
+      "email": "grace.dlamini@email.com",
+      "studentIds": ["student-002"]
+    },
+    {
+      "id": "parent-003",
+      "name": "Mr. Peter Nkosi",
+      "phone": "0826666666",
+      "email": "peter.nkosi@email.com",
+      "studentIds": ["student-003"]
+    },
+    {
+      "id": "parent-004",
+      "name": "Mrs. Zanele Zulu",
+      "phone": "0827777777",
+      "email": "zanele.zulu@email.com",
+      "studentIds": ["student-004", "student-005"]
+    }
+  ],
+  "timetable": {
+    "schoolStart": "08:00",
+    "schoolEnd": "14:00",
+    "pickupStart": "14:00",
+    "pickupEnd": "15:00",
+    "breaks": [
+      {
+        "name": "Tea Break",
+        "start": "10:00",
+        "end": "10:15"
+      },
+      {
+        "name": "Lunch",
+        "start": "12:00",
+        "end": "12:30"
+      }
+    ]
+  }
+}

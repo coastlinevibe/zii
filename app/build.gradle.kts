@@ -3,21 +3,22 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.compose)
+    kotlin("plugin.serialization") version "1.9.20"
 }
 
 android {
-    namespace = "com.bitchat.android"
+    namespace = "com.zii.school"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.zii.mobile"
+        applicationId = "com.zii.school"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 24
-        versionName = "1.8.0"
+        versionCode = 19
+        versionName = "0.4.0-alpha"
         
         // Custom APK name with version
-        setProperty("archivesBaseName", "zii-chat-${versionName}")
+        setProperty("archivesBaseName", "zii-school-${versionName}")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -90,6 +91,7 @@ dependencies {
     
     // JSON
     implementation(libs.gson)
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
@@ -109,8 +111,15 @@ dependencies {
     // Security preferences
     implementation(libs.androidx.security.crypto)
     
+    // WorkManager for background tasks
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
+    
     // EXIF orientation handling for images
     implementation("androidx.exifinterface:exifinterface:1.3.7")
+    
+    // QR Code generation and scanning
+    implementation("com.google.zxing:core:3.5.3")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     
     // Testing
     testImplementation(libs.bundles.testing)
